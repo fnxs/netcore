@@ -2,12 +2,7 @@ using System;
 
 namespace FunctionalExtensions.Maybe
 {
-    public abstract class Maybe<T> 
-    {
-        public static Func<TFrom, Maybe<T>> Lift<TFrom>(Func<TFrom, T> f)
-            => from
-                => new Just<T>(f(from));
-    }
+    public abstract class Maybe<T> { }
 
     public class Nothing<T> : Maybe<T> { }
 
