@@ -10,8 +10,8 @@ namespace fnxs.facts.Maybe
         [Fact]
         public void BindShouldBeComposable()
         {
-            var actual = 1.Return()
-                          .Bind(num => num.ToString().Return());
+            var actual = 1.ReturnMaybe()
+                          .Bind(num => num.ToString().ReturnMaybe());
 
             actual.Should().BeOfType<Just<string>>();
             actual.As<Just<string>>().Value.Should().Be("1");
@@ -20,9 +20,9 @@ namespace fnxs.facts.Maybe
         [Fact]
         public void BindShouldSkipWhenArgumentIsNothing()
         {
-            var actual = 1.Return()
+            var actual = 1.ReturnMaybe()
                           .Bind(num => new Nothing<int>())
-                          .Bind(str => "1".Return());
+                          .Bind(str => "1".ReturnMaybe());
 
             actual.Should().BeOfType<Nothing<string>>();
         }

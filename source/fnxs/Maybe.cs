@@ -15,20 +15,20 @@ namespace FunctionalExtensions.Maybe
 
     public static class MaybeExtensions
     {
-        // Return :: a -> Maybe a
-        public static Maybe<T> Return<T>(this T value) 
+        // ReturnMaybe :: a -> Maybe a
+        public static Maybe<T> ReturnMaybe<T>(this T value) 
             => new Just<T>(value);
         
-        // Return :: M a -> M a
-        public static Maybe<T> Return<T>(this Maybe<T> value)
+        // ReturnMaybe :: M a -> M a
+        public static Maybe<T> ReturnMaybe<T>(this Maybe<T> value)
             => value;
         
-        // Return :: Nothing a -> M a
-        public static Maybe<T> Return<T>(this Nothing<T> nothing)
+        // ReturnMaybe :: Nothing a -> M a
+        public static Maybe<T> ReturnMaybe<T>(this Nothing<T> nothing)
             => nothing;
         
-        // Return :: Just a -> M a
-        public static Maybe<T> Return<T>(this Just<T> just)
+        // ReturnMaybe :: Just a -> M a
+        public static Maybe<T> ReturnMaybe<T>(this Just<T> just)
             => just;
 
         // Bind :: M a -> (a -> M b) -> M b 
@@ -39,12 +39,6 @@ namespace FunctionalExtensions.Maybe
 
         // Compose :: M a -> M b -> M b
         public static Maybe<TTo> Compose<TFrom, TTo>(this Maybe<TFrom> from, Maybe<TTo> to)
-            => from is Just<TFrom>
-                ? to
-                : new Nothing<TTo>();
-        
-        // Lift :: M a -> (a -> b) -> M b
-        public static Maybe<TTo> Lift<TFrom, TTo>(this TFrom from, Func<TFrom, TTo> f)
-            => new Just<TTo>(f(from));            
+            => from.Bind(ignored => to);
     }
 }

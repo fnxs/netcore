@@ -5,7 +5,7 @@ using FunctionalExtensions.Maybe;
 
 namespace fnxs.facts.Maybe
 {
-    public class LiftAndComposeFacts
+    public class ComposeFacts
     {
         private int AddOne(int value)
             => value + 1;
@@ -14,19 +14,10 @@ namespace fnxs.facts.Maybe
             => value.ToString();
 
         [Fact]
-        public void LiftFacts()
+        public void ComposeBasic()
         {
-            var actual = 1.Lift(AddOne)
-                          .Bind(num => num.Lift(ToString));
-
-            actual.As<Just<string>>().Value.Should().Be("2");
-        }
-
-        [Fact]
-        public void ComposeFacts()
-        {
-            var actual = 1.Return()
-                          .Compose("2".Return());
+            var actual = 1.ReturnMaybe()
+                          .Compose("2".ReturnMaybe());
 
             actual.As<Just<string>>().Value.Should().Be("2");
         }
@@ -34,9 +25,9 @@ namespace fnxs.facts.Maybe
         [Fact]
         public void NothingBreaksComposeChain()
         {
-            var actual = 1.Return()
+            var actual = 1.ReturnMaybe()
                           .Compose(new Nothing<string>())
-                          .Compose(2.Return());
+                          .Compose(2.ReturnMaybe());
 
             actual.Should().BeOfType<Nothing<int>>();
         }
