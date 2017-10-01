@@ -1,5 +1,5 @@
 using FluentAssertions;
-using FunctionalExtensions.Maybe;
+using FunctionalExtensions.MaybeMonad;
 using Xunit;
 
 namespace fnxs.facts.Maybe

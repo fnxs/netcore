@@ -1,7 +1,7 @@
 using System;
 using System.Threading.Tasks;
 
-namespace FunctionalExtensions.Task
+namespace FunctionalExtensions.TaskMonad
 {
     public static class TaskExtensions
     {
@@ -9,7 +9,7 @@ namespace FunctionalExtensions.Task
         /// ReturnTask :: a -> M a
         /// </summary>
         public static Task<T> ReturnTask<T>(this T value)
-            => Task<T>.FromResult(value);
+            => Task.FromResult(value);
         
         /// <summary> 
         /// ReturnTask :: M a -> M a

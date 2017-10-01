@@ -1,6 +1,6 @@
 using System;
 
-namespace FunctionalExtensions.Maybe
+namespace FunctionalExtensions.EitherMonad
 {
     public class Either<TL, TR> 
     {

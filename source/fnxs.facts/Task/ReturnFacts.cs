@@ -1,5 +1,5 @@
 using FluentAssertions;
-using FunctionalExtensions.Task;
+using FunctionalExtensions.TaskMonad;
 using Xunit;
 
 namespace fnxs.facts.Task

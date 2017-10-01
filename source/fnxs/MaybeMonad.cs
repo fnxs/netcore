@@ -1,6 +1,6 @@
 using System;
 
-namespace FunctionalExtensions.Maybe
+namespace FunctionalExtensions.MaybeMonad
 {
     public abstract class Maybe<T> { }
 
@@ -16,7 +16,7 @@ namespace FunctionalExtensions.Maybe
     public static class MaybeExtensions
     {
         /// <summary>
-        /// ReturnMaybe :: a -> Maybe a
+        /// ReturnMaybe :: a -> M a
         /// </summary>
         public static Maybe<T> ReturnMaybe<T>(this T value) 
             => new Just<T>(value);

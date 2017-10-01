@@ -1,8 +1,6 @@
 using FluentAssertions;
-using FunctionalExtensions.Task;
-using System.Threading.Tasks;
+using FunctionalExtensions.TaskMonad;
 using Xunit;
-using System;
 
 namespace fnxs.facts.Task
 {

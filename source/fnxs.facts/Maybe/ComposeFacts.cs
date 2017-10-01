@@ -1,7 +1,6 @@
-using System;
 using Xunit;
 using FluentAssertions;
-using FunctionalExtensions.Maybe;
+using FunctionalExtensions.MaybeMonad;
 
 namespace fnxs.facts.Maybe
 {
