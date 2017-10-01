@@ -15,32 +15,47 @@ namespace FunctionalExtensions.Maybe
 
     public static class MaybeExtensions
     {
-        // ReturnMaybe :: a -> Maybe a
+        /// <summary>
+        /// ReturnMaybe :: a -> Maybe a
+        /// </summary>
         public static Maybe<T> ReturnMaybe<T>(this T value) 
             => new Just<T>(value);
         
-        // ReturnMaybe :: M a -> M a
+        /// <summary>
+        /// ReturnMaybe :: M a -> M a
+        /// </summary>
         public static Maybe<T> ReturnMaybe<T>(this Maybe<T> value)
             => value;
         
-        // ReturnMaybe :: Nothing a -> M a
+        /// <summary>
+        /// ReturnMaybe :: Nothing a -> M a
+        /// </summary>
         public static Maybe<T> ReturnMaybe<T>(this Nothing<T> nothing)
             => nothing;
         
-        // ReturnMaybe :: Just a -> M a
+        /// <summary>
+        /// ReturnMaybe :: Just a -> M a
+        /// </summary>
         public static Maybe<T> ReturnMaybe<T>(this Just<T> just)
             => just;
 
-        // Bind :: M a -> (a -> M b) -> M b 
+        /// <summary>
+        /// Bind :: M a -> (a -> M b) -> M b 
+        /// </summary>
         public static Maybe<TTo> Bind<TFrom, TTo>(this Maybe<TFrom> from, Func<TFrom, Maybe<TTo>> f)
             => from is Just<TFrom> just
                 ? f(just.Value)
                 : new Nothing<TTo>();
 
-        // Compose :: M a -> M b -> M b
+        /// <summary>
+        /// Compose :: M a -> M b -> M b
+        /// </summary>
         public static Maybe<TTo> Compose<TFrom, TTo>(this Maybe<TFrom> from, Maybe<TTo> to)
             => from.Bind(ignored => to);
         
+        /// <summary>
+        /// Lift :: (a -> b) -> (M a -> M b)
+        /// </summary>
         public static Func<Maybe<TFrom>, Maybe<TTo>> Lift<TFrom, TTo>(Func<TFrom, TTo> f)
             => from => 
                 from is Just<TFrom> just
