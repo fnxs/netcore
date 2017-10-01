@@ -13,7 +13,7 @@ namespace FunctionalExtensions.Maybe
         public T Value { get; }
     }
 
-    public static class Extensions
+    public static class MaybeExtensions
     {
         // ReturnMaybe :: a -> Maybe a
         public static Maybe<T> ReturnMaybe<T>(this T value) 
