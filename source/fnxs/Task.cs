@@ -19,5 +19,8 @@ namespace FunctionalExtensions.Task
 
         public static Task<TTo> Compose<TTo, TFrom>(this Task<TFrom> from, Task<TTo> to)
             => from.Bind(ignored => to);
+        
+        public static Func<Task<TFrom>, Task<TTo>> Lift<TFrom, TTo>(Func<TFrom, TTo> f)
+            => async from => await f(await from).ReturnTask();
     }
 }

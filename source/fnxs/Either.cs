@@ -61,5 +61,11 @@ namespace FunctionalExtensions.Maybe
         
         public static Either<TLeft, TToRight> Compose<TLeft, TFromRight, TToRight>(this Either<TLeft, TFromRight> from, Either<TLeft, TToRight> to)
             => from.Bind(ignored => to);
+        
+        public static Func<Either<TLeft, TFromRight>, Either<TLeft, TToRight>> Lift<TLeft, TFromRight, TToRight>(Func<TFromRight, TToRight> f)
+            => from
+                => from.IsLeft
+                ? new Either<TLeft, TToRight>(from.Left)
+                : f(from.Right).ReturnEitherRight<TLeft, TToRight>();
     }
 }
