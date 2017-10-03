@@ -2,6 +2,14 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <PackageId>fnxs.FunctionalExtensions</PackageId>
+    <PackageVersion>1.0.0</PackageVersion>
+    <Authors>Vladimir Ciobanu</Authors>
+    <Description>Functional extensions for .NET</Description>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageReleaseNotes>First release</PackageReleaseNotes>
+    <Copyright>Copyright 2017 (c) Vladimir Ciobanu</Copyright>
+    <PackageTags>functional monad maybe either task</PackageTags>
   </PropertyGroup>
 
 </Project>

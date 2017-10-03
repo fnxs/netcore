@@ -18,7 +18,7 @@ namespace FunctionalExtensions.TaskMonad
             => value;
         
         /// <summary>
-        /// Bind :: M a -> (a -> M b) -> M b 
+        /// Bind :: M a -> (a -> M b) -> M b
         /// </summary>
         public static async Task<TTo> Bind<TFrom, TTo>(this Task<TFrom> from, Func<TFrom, Task<TTo>> f)
             => await f(await from);
