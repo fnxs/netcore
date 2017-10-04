@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 
 namespace FunctionalExtensions.MaybeMonad
 {
@@ -16,31 +17,39 @@ namespace FunctionalExtensions.MaybeMonad
     public static class MaybeExtensions
     {
         /// <summary>
-        /// ReturnMaybe :: a -> M a
+        /// ReturnMaybe :: a -> Maybe a
         /// </summary>
         public static Maybe<T> ReturnMaybe<T>(this T value) 
             => new Just<T>(value);
         
         /// <summary>
-        /// ReturnMaybe :: M a -> M a
+        /// ReturnMaybe :: Maybe a -> Maybe a
         /// </summary>
         public static Maybe<T> ReturnMaybe<T>(this Maybe<T> value)
             => value;
         
         /// <summary>
-        /// ReturnMaybe :: Nothing a -> M a
+        /// ReturnMaybe :: Nothing a -> Maybe a
         /// </summary>
         public static Maybe<T> ReturnMaybe<T>(this Nothing<T> nothing)
             => nothing;
         
         /// <summary>
-        /// ReturnMaybe :: Just a -> M a
+        /// ReturnMaybe :: Just a -> Maybe a
         /// </summary>
         public static Maybe<T> ReturnMaybe<T>(this Just<T> just)
             => just;
+        
+        /// <summary>
+        /// Map :: Maybe a -> (a -> b) -> Maybe b
+        /// </summary>
+        public static Maybe<TTo> Map<TFrom, TTo>(this Maybe<TFrom> from, Func<TFrom, TTo> f)
+            => from is Just<TFrom> just
+                ? f(just.Value).ReturnMaybe()
+                : new Nothing<TTo>();
 
         /// <summary>
-        /// Bind :: M a -> (a -> M b) -> M b 
+        /// Bind :: Maybe a -> (a -> Maybe b) -> Maybe b 
         /// </summary>
         public static Maybe<TTo> Bind<TFrom, TTo>(this Maybe<TFrom> from, Func<TFrom, Maybe<TTo>> f)
             => from is Just<TFrom> just
@@ -48,13 +57,24 @@ namespace FunctionalExtensions.MaybeMonad
                 : new Nothing<TTo>();
 
         /// <summary>
-        /// Compose :: M a -> M b -> M b
+        /// BindAsync :: Task Maybe a -> (a -> Task Maybe b) -> Task Maybe b
+        /// </summary>
+        public static async Task<Maybe<TTo>> BindAsync<TFrom, TTo>(this Task<Maybe<TFrom>> taskFrom, Func<TFrom, Task<Maybe<TTo>>> f)
+        {
+            var from = await taskFrom;
+            return from is Just<TFrom> just
+                ? await f(just.Value)
+                : new Nothing<TTo>();
+        }
+
+        /// <summary>
+        /// Compose :: Maybe a -> Maybe b -> Maybe b
         /// </summary>
         public static Maybe<TTo> Compose<TFrom, TTo>(this Maybe<TFrom> from, Maybe<TTo> to)
             => from.Bind(ignored => to);
         
         /// <summary>
-        /// Lift :: (a -> b) -> (M a -> M b)
+        /// Lift :: (a -> b) -> (Maybe a -> Maybe b)
         /// </summary>
         public static Func<Maybe<TFrom>, Maybe<TTo>> Lift<TFrom, TTo>(Func<TFrom, TTo> f)
             => from => 
