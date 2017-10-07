@@ -31,7 +31,7 @@
   version: 1.0.2
   environment:
     nuget_key:
-      secure: Vqel/mTUrZ0esE9c4XdL35dOIpr+nRVtHBsv4mcRf+DgpPIgRsK6bdJneZsVvI/s
+      secure: 9ZcWRoEzErWXyVBVXWPGHcX6isRd+9RuoceQBdW2gqZG0CwPkgXHDXLkhyqTv3kx
   before_build:
     - ps: |
         cd $env:APPVEYOR_BUILD_FOLDER\source
