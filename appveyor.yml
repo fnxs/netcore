@@ -34,21 +34,21 @@
       secure: Vqel/mTUrZ0esE9c4XdL35dOIpr+nRVtHBsv4mcRf+DgpPIgRsK6bdJneZsVvI/s
   before_build:
     - ps: |
-        cd source
+        cd $env:APPVEYOR_BUILD_FOLDER\source
         dotnet restore
   build_script:
     - ps: |
-        cd source
+        cd $env:APPVEYOR_BUILD_FOLDER\source
         dotnet build --configuration Release --verbosity minimal
   test_script:
     - ps: |
-        cd source\fnxs.facts
+        cd $env:APPVEYOR_BUILD_FOLDERe\source\fnxs.facts
         dotnet test
   after_test:
     - ps: |
-        cd source\fnxs
+        cd $env:APPVEYOR_BUILD_FOLDER\source\fnxs
         dotnet pack --configuration Release
-        cd ..\..
+        cd $env:APPVEYOR_BUILD_FOLDER
         7z a fnxs-netcore.zip .\source\fnxs\bin\Release\*
         nuget setApiKey $env:nuget_key
         nuget push .\source\fnxs\bin\Release\fnxs.FunctionalExtensions.$env:APPVEYOR_BUILD_VERSION.nupkg -Source https://www.nuget.org/api/v2/package
