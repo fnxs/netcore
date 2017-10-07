@@ -42,7 +42,7 @@
         dotnet build --configuration Release --verbosity minimal
   test_script:
     - ps: |
-        cd $env:APPVEYOR_BUILD_FOLDERe\source\fnxs.facts
+        cd $env:APPVEYOR_BUILD_FOLDER\source\fnxs.facts
         dotnet test
   after_test:
     - ps: |
