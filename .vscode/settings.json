@@ -7,7 +7,8 @@
         "**/.DS_Store": true,
         "**/bin": true,
         "**/obj": true,
-        "**/*.userprefs": true
+        "**/*.userprefs": true,
+        "**/.idea": true
     },
     "dotnet-test-explorer.testProjectPath": "source/fnxs.facts/"
 }
